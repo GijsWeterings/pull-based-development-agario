@@ -2,6 +2,7 @@ package nl.gijsweterings.game.states;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.command.InputProvider;
 import org.newdawn.slick.state.BasicGameState;
@@ -46,7 +47,12 @@ public class GameOverState extends BasicGameState {
      */
     @Override
     public void update(GameContainer gc, StateBasedGame sbg, int arg2) throws SlickException {
+        Input input = gc.getInput();
 
+        if(input.isKeyDown(Input.KEY_SPACE)) {
+            sbg.getState(0).init(gc, sbg);
+            sbg.enterState(0);
+        }
     }
 
     /**

@@ -1,7 +1,8 @@
 package nl.gijsweterings.game.states;
 
 import nl.gijsweterings.Game;
-import nl.gijsweterings.entities.Entity;
+import nl.gijsweterings.entities.Blob;
+import nl.gijsweterings.entities.EnemyBlob;
 import nl.gijsweterings.entities.Player;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -10,6 +11,8 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 import java.util.ArrayList;
+import java.util.Random;
+import java.util.stream.Collectors;
 
 /**
  * The default state while the game runs.
@@ -19,7 +22,8 @@ public class RunningState extends BasicGameState {
     // Required state id for Slick2D
     public static final int ID = 0;
 
-    private ArrayList<Entity> entities = new ArrayList<Entity>();
+    private ArrayList<Blob> entities = new ArrayList<Blob>();
+    private Player player;
 
     /**
      * Initialize the running state.
@@ -37,11 +41,18 @@ public class RunningState extends BasicGameState {
      */
     @Override
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
+        entities.clear();
+
         // Spawn a new player in the middle of the field
-        Entity player = new Player(Game.getScreenWidth() / 2, Game.getScreenHeight() / 2);
+        player = new Player(Game.getScreenWidth() / 2, Game.getScreenHeight() / 2);
         entities.add(player);
 
-        // TODO spawn enemies
+        Random rand = new Random();
+        for (int i = 0; i < 5; i++) {
+            int x = rand.nextInt(Game.getScreenWidth());
+            int y = rand.nextInt(Game.getScreenHeight());
+            entities.add(new EnemyBlob(x,y));
+        }
 
         entities.forEach(entity -> entity.init(gc, sbg));
     }
@@ -67,12 +78,22 @@ public class RunningState extends BasicGameState {
      */
     @Override
     public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
-        if(!Player.isAlive()) {
+        if(!player.getAlive() || entities.size() == 1) {
             // The player has died, enter the GameOverState.
             sbg.enterState(1);
         }
         else {
-            entities.forEach(entity -> entity.update(gc, sbg, delta));
+            entities.removeIf(blob -> !blob.getAlive());
+
+            entities.forEach(blob -> {
+                ArrayList<Blob> collisionsForThisBlob =
+                        entities.stream()
+                                .filter(b -> b.getAlive())
+                                .filter(b -> !blob.equals(b))
+                                .filter(b -> blob.collides(b))
+                                .collect(Collectors.toCollection(ArrayList::new));
+                blob.update(gc, sbg, delta, collisionsForThisBlob);
+            });
         }
     }
 
