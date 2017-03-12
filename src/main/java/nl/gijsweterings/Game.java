@@ -1,11 +1,8 @@
 package nl.gijsweterings;
 
-import nl.gijsweterings.game.states.GameOverState;
 import nl.gijsweterings.game.states.RunningState;
 import org.newdawn.slick.AppGameContainer;
-import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
@@ -28,7 +25,6 @@ public class Game extends StateBasedGame {
     @Override
     public void initStatesList(GameContainer gameContainer) throws SlickException {
         addState(new RunningState());
-        addState(new GameOverState());
     }
 
     public static int getScreenWidth() {
