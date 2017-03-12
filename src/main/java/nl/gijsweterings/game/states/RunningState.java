@@ -29,19 +29,51 @@ public class RunningState extends BasicGameState {
         super();
     }
 
+    /**
+     * Initialize the game's initial entities.
+     * @param gc - The GameContainer to run the entities in.
+     * @param sbg - the StateBasedGame in which the entities play.
+     * @throws SlickException
+     */
     @Override
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
+        // Spawn a new player in the middle of the field
+        Entity player = new Player(Game.getScreenWidth() / 2, Game.getScreenHeight() / 2);
+        entities.add(player);
 
+        // TODO spawn enemies
+
+        entities.forEach(entity -> entity.init(gc, sbg));
     }
 
+    /**
+     * Hand all entities the ability to render.
+     * @param gc - GameContainer in which to render the entities in.
+     * @param sbg - StateBasedGame running, in which the entities live.
+     * @param g - Graphics hook to draw elements on screen.
+     * @throws SlickException
+     */
     @Override
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
-
+        entities.forEach((entity) -> entity.render(gc, sbg, g));
     }
 
+    /**
+     * Updates game logic while the game runs.
+     * @param gc - The gamecontainer in which the state runs
+     * @param sbg - The game this state is running in.
+     * @param delta
+     * @throws SlickException
+     */
     @Override
     public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
-
+        if(!Player.isAlive()) {
+            // The player has died, enter the GameOverState.
+            sbg.enterState(1);
+        }
+        else {
+            entities.forEach(entity -> entity.update(gc, sbg, delta));
+        }
     }
 
     /**
