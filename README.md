@@ -19,3 +19,5 @@ https://travis-ci.com/ - Continuous integration. Private repositories free with 
 https://www.jetbrains.com/idea/ - IntellIJ, my Java IDE of choice. Ultimate version free for students.
 
 http://junit.org/ - Test framework of choice in Java
+
+https://github.com/argixx/Slick2d-Game-Engine/tree/master/src/net/engine - Slick2D example project
