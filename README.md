@@ -21,3 +21,11 @@ https://www.jetbrains.com/idea/ - IntellIJ, my Java IDE of choice. Ultimate vers
 http://junit.org/ - Test framework of choice in Java
 
 https://github.com/argixx/Slick2d-Game-Engine/tree/master/src/net/engine - Slick2D example project
+
+## Software quality tools
+
+http://findbugs.sourceforge.net/
+
+https://pmd.github.io/
+
+http://checkstyle.sourceforge.net/
