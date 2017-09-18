@@ -12,13 +12,29 @@ import java.util.Random;
  */
 public class EnemyBlob extends Blob {
 
-    // Arbitrarily chosen seed for Random.
+    /**
+     * Arbitrarily chosen seed for Random.
+     */
     private static final int SEED = 121561651;
 
+    /**
+     * The maximum size an EnemyBlob can be.
+     * This limits the random size on creation only!
+     */
     public static final float MAX_ENEMY_SIZE = 30f;
 
-    public EnemyBlob(float x, float y) {
-        super(x, y, new Random(SEED).nextFloat() * MAX_ENEMY_SIZE);
+    /**
+     * Random seed generator.
+     */
+    private static final Random GENERATOR = new Random(SEED);
+
+    /**
+     * Constructs an Enemy blob, which has a random size between 0 and MAX_ENEMY_SIZE.
+     * @param x - x-coordinate where blob will spawn
+     * @param y - y-coordinate where enemy will spawn
+     */
+    public EnemyBlob(final float x, final float y) {
+        super(x, y, GENERATOR.nextFloat() * MAX_ENEMY_SIZE);
     }
 
     @Override
