@@ -128,7 +128,7 @@
                     </dependency>
                 </dependencies>
                 <configuration>
-                    <failOnViolation>true</failOnViolation>
+                    <configLocation>checkstyle.xml</configLocation>
                 </configuration>
                 <executions>
                     <execution>
