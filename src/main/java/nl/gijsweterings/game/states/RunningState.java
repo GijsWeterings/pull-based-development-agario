@@ -97,8 +97,7 @@ public class RunningState extends BasicGameState {
     public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
         if (!player.getAlive() || entities.size() == 1) {
             // The player has died, enter the GameOverState.
-            // TODO create gameoverstate
-            return;
+            sbg.enterState(1);
         } else {
             entities.removeIf(blob -> !blob.getAlive());
 
