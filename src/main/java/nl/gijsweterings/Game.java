@@ -1,5 +1,6 @@
 package nl.gijsweterings;
 
+import nl.gijsweterings.game.states.GameOverState;
 import nl.gijsweterings.game.states.RunningState;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.GameContainer;
@@ -28,6 +29,7 @@ public class Game extends StateBasedGame {
     @Override
     public void initStatesList(GameContainer gameContainer) throws SlickException {
         addState(new RunningState());
+        addState(new GameOverState());
     }
 
     /**
